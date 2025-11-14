@@ -116,7 +116,7 @@ export class SimulationEngine {
     const layers = layerRegistry.getAllLayers();
 
     for (const layer of layers) {
-      for (const tile of allTiles.data as any[]) {
+      for (const tile of allTiles.data as Tile[]) {
         // Initialize first variable for each layer with random values
         if (layer.variables.length > 0) {
           const varKey = layer.variables[0];
