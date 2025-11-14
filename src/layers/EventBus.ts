@@ -177,13 +177,17 @@ export class EventBus {
         // Weighted average (only works for numeric values)
         if (typeof currentValue !== 'number') {
           // Fall back to priority for non-numeric
-          return this.resolveConflict(
+          const originalResolver = this.conflictResolver;
+          this.conflictResolver = { mode: 'priority' };
+          const result = await this.resolveConflict(
             tileId,
             varKey,
             currentLayerId,
             currentValue,
             publishers
           );
+          this.conflictResolver = originalResolver;
+          return result;
         }
 
         const weights = this.conflictResolver.weights || {};
